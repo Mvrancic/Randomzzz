@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../shared/widgets/neon_scaffold.dart';
 import '../../players/data/players_controller.dart';
+import '../../score/data/score_controller.dart';
 import '../data/team_picker_controller.dart';
 import 'widgets/finger_picker_widget.dart';
 import 'widgets/team_count_selector.dart';
@@ -245,6 +246,25 @@ class _TeamPickerScreenState extends ConsumerState<TeamPickerScreen> {
                     if (state.teams != null) ...[
                       const Divider(color: AppColors.border),
                       const SizedBox(height: 24),
+                       // Success Action
+                       Container(
+                         margin: const EdgeInsets.only(bottom: 24),
+                         width: double.infinity,
+                         child: OutlinedButton.icon(
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: AppColors.neonGreen,
+                              side: const BorderSide(color: AppColors.neonGreen),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                            ),
+                            onPressed: () {
+                               ref.read(scoreControllerProvider.notifier).loadTeams(state.teams!);
+                               context.push('/score');
+                            }, 
+                            icon: const Icon(Icons.scoreboard_rounded),
+                            label: const Text('USE IN SCOREBOARD', style: TextStyle(fontWeight: FontWeight.bold)),
+                         ),
+                       ),
                        GridView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),

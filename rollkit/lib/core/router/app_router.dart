@@ -3,11 +3,13 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/presets/presentation/presets_screen.dart';
+import '../../features/settings/presentation/settings_screen.dart';
+import '../../features/dice/presentation/dice_screen.dart';
 import '../../features/roulette/presentation/roulette_screen.dart';
 import '../../features/rng/presentation/rng_screen.dart';
 import '../../features/teams/presentation/team_picker_screen.dart';
-import '../../features/settings/presentation/settings_screen.dart';
-import '../../features/dice/presentation/dice_screen.dart';
+import '../../features/timer/presentation/timer_screen.dart';
+import '../../features/score/presentation/score_screen.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -45,6 +47,14 @@ class AppRouter {
       GoRoute(
         path: '/teams',
         builder: (context, state) => const TeamPickerScreen(),
+      ),
+      GoRoute(
+        path: '/timer',
+        builder: (context, state) => const TimerScreen(),
+      ),
+      GoRoute(
+        path: '/score',
+        builder: (context, state) => const ScoreScreen(),
       ),
     ],
   );
