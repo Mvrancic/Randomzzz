@@ -33,13 +33,11 @@ class HomeScreen extends StatelessWidget {
       ),
       _HubItem(
         icon: Icons.numbers_rounded,
-        title: 'Random Number',
-        subtitle: 'Min/Max + no repeat',
+        title: 'Number Generator',
+        subtitle: 'Min/Max & Unique Mode',
         accent: AppColors.neonGreen,
         onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Soon: RNG')),
-          );
+          context.push('/rng');
         },
       ),
       _HubItem(
