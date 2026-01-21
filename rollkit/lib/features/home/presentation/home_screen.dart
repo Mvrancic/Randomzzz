@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../core/theme/colors.dart';
 import '../../../shared/widgets/neon_scaffold.dart';
+import '../../players/presentation/widgets/players_bar_widget.dart';
 import 'widgets/game_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -17,10 +19,7 @@ class HomeScreen extends StatelessWidget {
         subtitle: 'Customize your dice and roll them!',
         accent: AppColors.neonCyan,
         onTap: () {
-          // TODO: navegar a Dice (lo hacemos próximo paso)
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Soon: Dice Roller')),
-          );
+          context.push('/dice');
         },
       ),
       _HubItem(
@@ -92,12 +91,16 @@ class HomeScreen extends StatelessWidget {
           icon: const Icon(Icons.flash_on_rounded),
         ),
       ],
-      child: ListView.separated(
-        padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
-        itemCount: items.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 12),
-        itemBuilder: (context, i) {
-          final it = items[i];
+      child: Column(
+        children: [
+          const PlayersBarWidget(),
+          Expanded(
+            child: ListView.separated(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+              itemCount: items.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 12),
+              itemBuilder: (context, i) {
+                final it = items[i];
           return GameCard(
             icon: it.icon,
             title: it.title,
@@ -108,7 +111,10 @@ class HomeScreen extends StatelessWidget {
               .animate()
               .fadeIn(duration: 350.ms, delay: (60 * i).ms)
               .slideY(begin: 0.08, end: 0, duration: 350.ms, curve: Curves.easeOutCubic);
-        },
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -129,3 +135,4 @@ class _HubItem {
     required this.onTap,
   });
 }
+
