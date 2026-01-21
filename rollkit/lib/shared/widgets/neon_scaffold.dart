@@ -15,9 +15,11 @@ class NeonScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        // Background glow
+    return Container(
+      color: AppColors.bg, // Ensure base color is dark
+      child: Stack(
+        children: [
+          // Background glow
         Positioned.fill(
           child: DecoratedBox(
             decoration: BoxDecoration(
@@ -56,8 +58,9 @@ class NeonScaffold extends StatelessWidget {
             top: false,
             child: child,
           ),
-        ),
-      ],
-    );
+        ), // Scaffold
+      ], // Stack children
+    ), // Stack
+  ); // Container
   }
 }

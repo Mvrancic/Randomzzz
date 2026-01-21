@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../core/theme/colors.dart';
@@ -17,10 +18,7 @@ class HomeScreen extends StatelessWidget {
         subtitle: 'Customize your dice and roll them!',
         accent: AppColors.neonCyan,
         onTap: () {
-          // TODO: navegar a Dice (lo hacemos próximo paso)
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Soon: Dice Roller')),
-          );
+          context.push('/dice');
         },
       ),
       _HubItem(
@@ -129,3 +127,4 @@ class _HubItem {
     required this.onTap,
   });
 }
+

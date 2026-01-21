@@ -4,11 +4,20 @@ import 'package:go_router/go_router.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/presets/presentation/presets_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
+import '../../features/dice/presentation/dice_screen.dart';
+
+final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
   static final router = GoRouter(
+    navigatorKey: rootNavigatorKey,
     initialLocation: '/home',
     routes: [
+      GoRoute(
+        path: '/dice',
+        parentNavigatorKey: rootNavigatorKey, // We need to define this to push ABOVE the tabs, or just use context.push
+        builder: (c, s) => const DiceScreen(),
+      ),
       ShellRoute(
         builder: (context, state, child) => _TabsShell(child: child),
         routes: [
