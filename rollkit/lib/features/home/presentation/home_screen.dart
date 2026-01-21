@@ -55,9 +55,7 @@ class HomeScreen extends StatelessWidget {
         subtitle: 'Pass the turn with a tap',
         accent: AppColors.neonCyan,
         onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Soon: Timer')),
-          );
+          context.push('/timer');
         },
       ),
       _HubItem(
@@ -66,9 +64,7 @@ class HomeScreen extends StatelessWidget {
         subtitle: '2–8 players',
         accent: AppColors.neonPurple,
         onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Soon: Score')),
-          );
+          context.push('/score');
         },
       ),
     ];
