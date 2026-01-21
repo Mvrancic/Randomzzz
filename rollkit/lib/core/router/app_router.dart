@@ -5,6 +5,7 @@ import '../../features/home/presentation/home_screen.dart';
 import '../../features/presets/presentation/presets_screen.dart';
 import '../../features/roulette/presentation/roulette_screen.dart';
 import '../../features/rng/presentation/rng_screen.dart';
+import '../../features/teams/presentation/team_picker_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/dice/presentation/dice_screen.dart';
 
@@ -40,6 +41,10 @@ class AppRouter {
       GoRoute(
         path: '/rng',
         builder: (context, state) => const RngScreen(),
+      ),
+      GoRoute(
+        path: '/teams',
+        builder: (context, state) => const TeamPickerScreen(),
       ),
     ],
   );
