@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../shared/widgets/neon_scaffold.dart';
+import '../../players/data/players_controller.dart';
 import 'package:rollkit/features/dice/data/dice_controller.dart';
 import 'widgets/die_widget.dart';
 
@@ -13,6 +14,9 @@ class DiceScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final diceState = ref.watch(diceControllerProvider);
     final controller = ref.read(diceControllerProvider.notifier);
+    final playersState = ref.watch(playersControllerProvider);
+    final playersController = ref.read(playersControllerProvider.notifier);
+    final currentPlayer = playersState.currentPlayer;
 
     return NeonScaffold(
       title: 'Dice Roller',
@@ -24,6 +28,43 @@ class DiceScreen extends ConsumerWidget {
       ],
       child: Column(
         children: [
+          // Turn Info
+          if (playersState.isGameNightMode && currentPlayer != null)
+            Container(
+              width: double.infinity,
+              color: AppColors.panel,
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Current Turn',
+                        style: TextStyle(
+                          color: AppColors.textSecondary,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        currentPlayer.name,
+                        style: const TextStyle(
+                          color: AppColors.neonCyan,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  OutlinedButton(
+                    onPressed: playersController.nextTurn,
+                    child: const Text('Next'),
+                  ),
+                ],
+              ),
+            ),
           Expanded(
             child: Center(
               child: Padding(
