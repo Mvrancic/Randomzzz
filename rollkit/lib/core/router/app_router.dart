@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/presets/presentation/presets_screen.dart';
 import '../../features/roulette/presentation/roulette_screen.dart';
+import '../../features/rng/presentation/rng_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/dice/presentation/dice_screen.dart';
 
@@ -35,6 +36,10 @@ class AppRouter {
       GoRoute(
         path: '/roulette',
         builder: (context, state) => const RouletteScreen(),
+      ),
+      GoRoute(
+        path: '/rng',
+        builder: (context, state) => const RngScreen(),
       ),
     ],
   );
