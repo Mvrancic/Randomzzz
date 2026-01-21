@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/presets/presentation/presets_screen.dart';
+import '../../features/roulette/presentation/roulette_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/dice/presentation/dice_screen.dart';
 
@@ -11,20 +12,29 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
 class AppRouter {
   static final router = GoRouter(
     navigatorKey: rootNavigatorKey,
-    initialLocation: '/home',
+    initialLocation: '/',
+    redirect: (context, state) {
+      if (state.uri.toString() == '/home') {
+        return '/';
+      }
+      return null;
+    },
     routes: [
-      GoRoute(
-        path: '/dice',
-        parentNavigatorKey: rootNavigatorKey, // We need to define this to push ABOVE the tabs, or just use context.push
-        builder: (c, s) => const DiceScreen(),
-      ),
       ShellRoute(
         builder: (context, state, child) => _TabsShell(child: child),
         routes: [
-          GoRoute(path: '/home', builder: (c, s) => const HomeScreen()),
+          GoRoute(path: '/', builder: (c, s) => const HomeScreen()),
           GoRoute(path: '/presets', builder: (c, s) => const PresetsScreen()),
           GoRoute(path: '/settings', builder: (c, s) => const SettingsScreen()),
         ],
+      ),
+      GoRoute(
+        path: '/dice',
+        builder: (context, state) => const DiceScreen(),
+      ),
+      GoRoute(
+        path: '/roulette',
+        builder: (context, state) => const RouletteScreen(),
       ),
     ],
   );
@@ -57,7 +67,7 @@ class _TabsShellState extends State<_TabsShell> {
         onDestinationSelected: (i) {
           switch (i) {
             case 0:
-              context.go('/home');
+              context.go('/');
               break;
             case 1:
               context.go('/presets');

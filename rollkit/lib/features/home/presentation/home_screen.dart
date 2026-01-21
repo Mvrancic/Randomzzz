@@ -28,9 +28,7 @@ class HomeScreen extends StatelessWidget {
         subtitle: 'Customizable options!',
         accent: AppColors.neonPurple,
         onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Soon: Roulette')),
-          );
+          context.push('/roulette');
         },
       ),
       _HubItem(
