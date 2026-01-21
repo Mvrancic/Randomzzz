@@ -81,22 +81,26 @@ class _RouletteScreenState extends ConsumerState<RouletteScreen> {
             ),
             
           Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    height: 320,
-                    child: RouletteWheel(
-                      items: state.items,
-                      isSpinning: state.isSpinning,
-                      winnerIndex: state.winnerIndex,
-                      // onAnimationEnd: () { ... }, // Could show confetti here
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 40), // Push it a bit lower as requested
+                    SizedBox(
+                      height: 400,
+                      child: RouletteWheel(
+                        items: state.items,
+                        isSpinning: state.isSpinning,
+                        winnerIndex: state.winnerIndex,
+                        onAnimationEnd: () {
+                           _showResultDialog(context, state.items[state.winnerIndex ?? 0], currentPlayer?.name);
+                        },
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 40),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -230,6 +234,86 @@ class _RouletteScreenState extends ConsumerState<RouletteScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _showResultDialog(BuildContext context, String result, String? playerName) {
+    showDialog(
+      context: context,
+      barrierDismissible: true, // Click outside to close
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppColors.panel,
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: AppColors.neonPurple.withValues(alpha: 0.5), width: 2),
+          ),
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.emoji_events_rounded, color: AppColors.neonPurple, size: 48),
+                    const SizedBox(height: 16),
+                    if (playerName != null) ...[
+                      Text(
+                        "$playerName's turn",
+                        style: TextStyle(
+                          color: AppColors.textSecondary,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                    Text(
+                      result,
+                      style: const TextStyle(
+                        color: AppColors.neonCyan,
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        shadows: [
+                          Shadow(
+                            color: AppColors.neonCyan,
+                            blurRadius: 20,
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.panel2,
+                          foregroundColor: AppColors.neonPurple,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text('Awesome!'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                right: 8,
+                top: 8,
+                child: IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.close_rounded, color: AppColors.muted),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

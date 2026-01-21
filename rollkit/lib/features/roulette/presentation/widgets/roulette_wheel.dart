@@ -137,7 +137,7 @@ class _RouletteWheelState extends State<RouletteWheel>
         Transform.rotate(
           angle: _currentAngle,
           child: CustomPaint(
-            size: const Size(300, 300),
+            size: const Size(380, 380),
             painter: _WheelPainter(items: widget.items),
           ),
         ),
@@ -145,7 +145,7 @@ class _RouletteWheelState extends State<RouletteWheel>
         Container(
           margin: const EdgeInsets.only(top: 0), // Overlap slightly
           child: CustomPaint(
-            size: const Size(30, 40),
+            size: const Size(20, 30),
             painter: _PointerPainter(),
           ),
         ),
