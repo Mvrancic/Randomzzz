@@ -10,9 +10,10 @@ class AppColors {
   static const neonGreen = Color(0xFF58FF9E);
   static const neonPink = Color(0xFFFF4FD8);
 
-  static const text = Color(0xFFEAF0FF);
-  static const muted = Color(0xFF9AA4C3);
-  static const border = Color(0xFF26304F);
+  static const Color text = Color(0xFFEAF0FF);
+  static final Color textSecondary = const Color(0xFFEAF0FF).withValues(alpha: 0.7);
+  static const Color muted = Color(0xFF9AA4C3);
+  static const Color border = Color(0xFF26304F);
 
   static const danger = Color(0xFFFF5571);
 }
