@@ -46,9 +46,7 @@ class HomeScreen extends StatelessWidget {
         subtitle: 'Balance teams',
         accent: AppColors.neonPink,
         onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Soon: Teams')),
-          );
+          context.push('/teams');
         },
       ),
       _HubItem(
