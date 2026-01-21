@@ -47,6 +47,10 @@ class TeamPickerController extends StateNotifier<TeamPickerState> {
     state = state.copyWith(usePlayers: value);
   }
 
+  void toggleTouchMode(bool value) {
+    state = state.copyWith(isTouchMode: value);
+  }
+
   void generateTeams() {
     List<String> sourcePlayers;
     
